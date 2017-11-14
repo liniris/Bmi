@@ -30,17 +30,34 @@ public class MainActivity extends AppCompatActivity {
     }
     public void bmi(View view){
     //    System.out.println("what??????");
-        Log.d("MainActivity","testing bmi method");
-        EditText edWeight = (EditText) findViewById(R.id.ed_weight);//(
+       // Log.d("MainActivity","testing bmi method");
+        EditText edWeight = (EditText) findViewById(R.id.ed_weight);
         EditText edHeight = (EditText) findViewById(R.id.ed_height);
         float weight = Float.parseFloat(edWeight.getText().toString());
         float height = Float.parseFloat(edHeight.getText().toString());
         float bmi = weight/(height*height);
-        Log.d("MainActivity","calculate bmi");//
-        new AlertDialog.Builder(this)
+       // Log.d("MainActivity","calculate bmi");//
+        if (bmi<20){
+            new AlertDialog.Builder(this)
+                    .setMessage("您的BMI: "+bmi+"請多吃點")
+                    .setPositiveButton(R.string.ok,null)
+                    .setTitle("title")
+                    .show();
+        }else {
+            new AlertDialog.Builder(this)
+                    .setMessage("您的BMI: "+bmi)
+                    .setPositiveButton(R.string.ok,null)
+                    .setTitle("title")
+                    .show();
+        }
+
+
+
+
+       /* new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.your_bmi_is)+bmi)//有加int不能直接R
                 .setPositiveButton(R.string.ok,null)
                 .setTitle(R.string.my_title)//可支援字串和int可直接R
-                .show();
+                .show();*/
     }
 }
