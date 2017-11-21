@@ -1,5 +1,6 @@
 package com.iris.bmi;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
                 .show();
         }
     };//要分號
+    private EditText edWeight;
+    private EditText edHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,17 +31,34 @@ public class MainActivity extends AppCompatActivity {
         //getResources().getString(R.string.app_name);//得字串
         Button btHelp = (Button)findViewById(R.id.b_help);//匿名類別
         btHelp.setOnClickListener(listener);
+        /*btHelp.setOnClickListener(new View.OnClickListener()){
+            @Override
+            public void onClick(View view){
+            }
+        }*/
+        findViews();
+        Log.d("MainActivity","onCreate");
     }
+
+    private void findViews() {//ctrl+Alt+M
+        edWeight = (EditText) findViewById(R.id.ed_weight);//ctrl+Alt+F 區域變數
+        edHeight = (EditText) findViewById(R.id.ed_height);
+    }
+
     public void bmi(View view){
     //    System.out.println("what??????");
        // Log.d("MainActivity","testing bmi method");
-        EditText edWeight = (EditText) findViewById(R.id.ed_weight);
-        EditText edHeight = (EditText) findViewById(R.id.ed_height);
+        findViews();
         float weight = Float.parseFloat(edWeight.getText().toString());
         float height = Float.parseFloat(edHeight.getText().toString());
         float bmi = weight/(height*height);
+
+        Intent intent = new Intent(this,ResultActivity.class);
+        intent.putExtra("BMI_RESULT" , bmi);
+        startActivity(intent);
+
        // Log.d("MainActivity","calculate bmi");//
-        if (bmi<20 && height<3){
+       /* if (bmi<20 && height<3){
             new AlertDialog.Builder(this)
                     .setMessage("您的BMI: "+bmi+"請多吃點")
                     .setPositiveButton(R.string.ok,null)
@@ -55,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.ok,null)
                     .setTitle("title")
                     .show();
-        }
+        }*/
 
 
 
@@ -65,5 +86,41 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.ok,null)
                 .setTitle(R.string.my_title)//可支援字串和int可直接R
                 .show();*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("MainActivity","onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("MainActivity","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MainActivity","onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MainActivity","onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity","onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("MainActivity","onRestart");
     }
 }
